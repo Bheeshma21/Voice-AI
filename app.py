@@ -1,11 +1,27 @@
 from dotenv import load_dotenv
 load_dotenv()
 
+import os
+import subprocess
+
+# --------------------------------------------------
+# Create Chroma DB automatically if it doesn't exist
+# --------------------------------------------------
+if not os.path.exists("rag/chroma_db/chroma.sqlite3"):
+    print("Chroma database not found.")
+    print("Running ingest.py to create embeddings...")
+
+    subprocess.run(
+        ["python", "rag/ingest.py"],
+        check=True
+    )
+
+    print("Chroma database created successfully.")
+
 from livekit.agents import AgentServer, cli, Agent
 
 from pipeline.session import create_session
 from agents.graph import build_graph
-
 
 server = AgentServer()
 
@@ -26,7 +42,6 @@ class VoiceAgent(Agent):
 
         self.graph = build_graph()
 
-
     async def on_user_turn_completed(
         self,
         turn_ctx,
@@ -37,7 +52,6 @@ class VoiceAgent(Agent):
 
         print("USER:", query)
 
-
         result = self.graph.invoke(
             {
                 "query": query,
@@ -45,20 +59,16 @@ class VoiceAgent(Agent):
             }
         )
 
-
-        # give RAG result back as context
         turn_ctx.add_message(
             role="system",
             content=result["response"]
         )
 
 
-
 @server.rtc_session()
 async def my_agent(ctx):
 
     session = create_session()
-
 
     await session.start(
         room=ctx.room,
