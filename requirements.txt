@@ -1,0 +1,13 @@
+livekit
+livekit-agents
+livekit-plugins-deepgram
+livekit-plugins-cartesia
+livekit-plugins-silero
+python-dotenv 
+livekit-plugins-groq
+langchain
+langchain-community
+langchain-chroma
+chromadb
+pypdf
+sentence-transformers
