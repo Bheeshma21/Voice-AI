@@ -3,6 +3,8 @@ load_dotenv()
 
 import os
 import subprocess
+import sys
+import traceback
 
 # --------------------------------------------------
 # Create Chroma DB automatically if it doesn't exist
@@ -18,10 +20,30 @@ if not os.path.exists("rag/chroma_db/chroma.sqlite3"):
 
     print("Chroma database created successfully.")
 
-from livekit.agents import AgentServer, cli, Agent
+# Wrap imports to catch exceptions
+try:
+    from livekit.agents import AgentServer, cli, Agent
+    print("DEBUG: Imported AgentServer, cli, Agent")
+except Exception as e:
+    print(f"EXCEPTION in livekit.agents import: {e}")
+    traceback.print_exc()
+    sys.exit(1)
 
-from pipeline.session import create_session
-from agents.graph import build_graph
+try:
+    from pipeline.session import create_session
+    print("DEBUG: Imported create_session")
+except Exception as e:
+    print(f"EXCEPTION in pipeline.session import: {e}")
+    traceback.print_exc()
+    sys.exit(1)
+
+try:
+    from agents.graph import build_graph
+    print("DEBUG: Imported build_graph")
+except Exception as e:
+    print(f"EXCEPTION in agents.graph import: {e}")
+    traceback.print_exc()
+    sys.exit(1)
 
 server = AgentServer()
 
@@ -79,3 +101,4 @@ async def my_agent(ctx):
 if __name__ == "__main__":
 
     cli.run_app(server)
+
