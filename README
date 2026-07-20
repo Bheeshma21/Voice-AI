@@ -1,0 +1,204 @@
+# 🎙️ Voice AI – Multi-Agent Conversational Assistant
+
+An AI-powered real-time voice assistant built using **LiveKit**, **LangGraph**, **RAG**, **ChromaDB**, and **Groq LLM**.
+
+The assistant understands spoken language, retrieves information from a knowledge base, routes requests to specialized AI agents, and responds naturally using speech synthesis.
+
+---
+
+## 🚀 Features
+
+- 🎤 Real-time Speech-to-Text
+- 🧠 Multi-Agent Architecture
+- 📚 Retrieval-Augmented Generation (RAG)
+- 🔎 Semantic Search with ChromaDB
+- 🤖 LangGraph-based Agent Routing
+- ⚡ Groq LLM Integration
+- 🔊 Text-to-Speech Responses
+- ☁️ Deployable on Railway
+- 🌐 LiveKit Voice Pipeline
+
+---
+
+## 🏗️ Architecture
+
+```
+User Voice
+     │
+     ▼
+Speech-to-Text (Deepgram)
+     │
+     ▼
+Router Agent (LangGraph)
+     │
+ ┌───┼─────────────┐
+ │   │             │
+ ▼   ▼             ▼
+Order Product Delivery
+Agent  Agent    Agent
+        │
+        ▼
+   RAG Retriever
+        │
+        ▼
+ Chroma Vector DB
+        │
+        ▼
+Groq LLM
+        │
+        ▼
+Text-to-Speech
+```
+
+---
+
+## 📂 Project Structure
+
+```
+Voice-AI/
+│
+├── agents/
+│   ├── router.py
+│   ├── graph.py
+│   ├── order_agent.py
+│   ├── product_agent.py
+│   ├── pricing_agent.py
+│   └── delivery_agent.py
+│
+├── pipeline/
+│   ├── session.py
+│   ├── stt.py
+│   ├── tts.py
+│   ├── vad.py
+│   └── turn_detector.py
+│
+├── rag/
+│   ├── ingest.py
+│   ├── retriever.py
+│   └── chroma_db/
+│
+├── data/
+│   ├── business_policies.pdf
+│   ├── pricing_rules.pdf
+│   ├── service_catalog.pdf
+│   └── surcharge_rules.pdf
+│
+├── app.py
+├── config.py
+└── requirements.txt
+```
+
+---
+
+## 🛠 Tech Stack
+
+- Python
+- LiveKit Agents
+- LangGraph
+- LangChain
+- ChromaDB
+- HuggingFace Embeddings
+- Deepgram
+- Groq
+- Cartesia
+- Railway
+
+---
+
+## ⚙️ Installation
+
+```bash
+git clone https://github.com/Bheeshma21/Voice-AI.git
+
+cd Voice-AI
+
+python -m venv .venv
+
+source .venv/bin/activate
+```
+
+Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 🔑 Environment Variables
+
+Create a `.env` file
+
+```
+LIVEKIT_URL=
+
+LIVEKIT_API_KEY=
+
+LIVEKIT_API_SECRET=
+
+DEEPGRAM_API_KEY=
+
+GROQ_API_KEY=
+
+CARTESIA_API_KEY=
+```
+
+---
+
+## 📚 Create Vector Database
+
+```bash
+python rag/ingest.py
+```
+
+---
+
+## ▶️ Run
+
+```bash
+python app.py start
+```
+
+For development
+
+```bash
+python app.py dev
+```
+
+---
+
+## 📌 Future Improvements
+
+- Conversation Memory
+- Authentication
+- Voice Cloning
+- Streaming Responses
+- Web Dashboard
+- Multi-language Support
+- Docker Deployment
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!
+
+Fork the repository, create a feature branch, and submit a pull request.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 👨‍💻 Author
+
+**Bheeshma Reddy**
+
+GitHub:
+https://github.com/Bheeshma21
+
+LinkedIn:
+https://www.linkedin.com/
