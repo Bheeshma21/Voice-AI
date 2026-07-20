@@ -3,6 +3,8 @@ load_dotenv()
 
 import os
 import subprocess
+import sys
+import traceback
 
 # --------------------------------------------------
 # Create Chroma DB automatically if it doesn't exist
@@ -18,12 +20,41 @@ if not os.path.exists("rag/chroma_db/chroma.sqlite3"):
 
     print("Chroma database created successfully.")
 
-from livekit.agents import AgentServer, cli, Agent
+print("DEBUG: importing AgentServer, cli, Agent from livekit.agents")
+try:
+    from livekit.agents import AgentServer, cli, Agent
+    print("DEBUG: successfully imported AgentServer, cli, Agent from livekit.agents")
+except Exception:
+    print("DEBUG: FAILED importing AgentServer, cli, Agent from livekit.agents")
+    traceback.print_exc()
+    sys.exit(1)
 
-from pipeline.session import create_session
-from agents.graph import build_graph
+print("DEBUG: importing create_session from pipeline.session")
+try:
+    from pipeline.session import create_session
+    print("DEBUG: successfully imported create_session from pipeline.session")
+except Exception:
+    print("DEBUG: FAILED importing create_session from pipeline.session")
+    traceback.print_exc()
+    sys.exit(1)
 
-server = AgentServer()
+print("DEBUG: importing build_graph from agents.graph")
+try:
+    from agents.graph import build_graph
+    print("DEBUG: successfully imported build_graph from agents.graph")
+except Exception:
+    print("DEBUG: FAILED importing build_graph from agents.graph")
+    traceback.print_exc()
+    sys.exit(1)
+
+print("DEBUG: creating AgentServer instance")
+try:
+    server = AgentServer()
+    print("DEBUG: successfully created AgentServer instance")
+except Exception:
+    print("DEBUG: FAILED creating AgentServer instance")
+    traceback.print_exc()
+    sys.exit(1)
 
 
 class VoiceAgent(Agent):
